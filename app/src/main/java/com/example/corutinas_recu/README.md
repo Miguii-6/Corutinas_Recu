@@ -22,9 +22,28 @@ El código se organiza en varias secciones clave:
 - **Función `BotonRespuesta()`**: Define los botones de respuesta (Verdadero o Falso) y su comportamiento al
   seleccionar una respuesta.
 
-## Frases
+## Frases y variables globales
 
-Las frases ya vienen dadas y agregamos más variables a la data class `Frase` de la cual partimos.
+Las frases ya vienen dadas y agregamos más variables a la data class `Frase` de la cual partimos. 
+Así quedaría el código de las variables
+
+
+```kotlin
+
+/**
+ * Variables globales
+ */
+// Para crear los objetos de las frases
+data class Frase(var texto: String, var verdadero: Boolean)
+// Lista para almacenar las frases
+var frases: MutableList<Frase> = mutableListOf()
+// La frase actual
+var fraseActual: MutableState<Frase> = mutableStateOf(Frase("-", true))
+var CuentaAtras by mutableStateOf(20)
+var puntuacion by mutableStateOf(0)
+var juegoIniciado by mutableStateOf(false)
+
+```
 
 ## Codigo Boton Start y Iniciar juego
 
