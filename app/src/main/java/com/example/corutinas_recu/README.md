@@ -126,5 +126,17 @@ fun BotonRespuesta(verdadero: Boolean, color: Color) {
 }
 ```
 
+## Uso de la Aplicación
 
+Para jugar a este juego, se siguen los siguientes pasos:
+
+1. **Inicio del Juego**: Al abrir la aplicación, presiona el botón "Start" para iniciar el juego.
+2. **Temporizador y Puntuación**: Observa el temporizador que cuenta desde 20 hasta 0 segundos y la
+puntuación que aumenta al responder correctamente.
+3. **Selecciona Respuestas**: Haz clic en los botones "V" (verdadero) o "F" (falso) para responder 
+a la afirmación presentada.
+4. **Finalización del Juego**: El juego termina cuando el temporizador llega a cero.
+
+
+### Autor Miguel Mariño Martínez
 
