@@ -21,3 +21,7 @@ El código se organiza en varias secciones clave:
 - **Función `BotonStart()`**: Define el botón de inicio del juego y su comportamiento al presionarlo.
 - **Función `BotonRespuesta()`**: Define los botones de respuesta (Verdadero o Falso) y su comportamiento al
   seleccionar una respuesta.
+
+## Frases
+
+Las frases ya vienen dadas y agregamos más variables a la data class `Frase` de la cual partimos.
