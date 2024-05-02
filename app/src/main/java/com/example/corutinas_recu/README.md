@@ -25,3 +25,36 @@ El código se organiza en varias secciones clave:
 ## Frases
 
 Las frases ya vienen dadas y agregamos más variables a la data class `Frase` de la cual partimos.
+
+## Codigo Boton Start y Iniciar juego
+
+Aquí pongo el código que voy a usar para iniciar el juego sin todos los comentarios y con lo importante 
+y no la colocación para el User, en esta función de iniciar el juego cambia el estado del juego a iniciado, selecciona 
+una frase aleatoria y comienza la cuenta atrás. Y el botón inicia o reinicia el juego al pulsarlo.
+
+```kotlin
+fun iniciarJuego() {
+    juegoIniciado = true
+    fraseActual.value = frases.random() // Selecciona una frase aleatoria
+    scope.launch {
+        repeat(20) {
+            delay(1000)
+            CuentaAtras--
+        }
+        juegoIniciado = false
+    }
+}
+
+@Composable
+Button(
+    onClick = {
+        if (!juegoIniciado) {
+            CuentaAtras = 20
+            puntuacion = 0
+            iniciarJuego()
+        }
+    }
+) {
+    Text("START")
+}
+```

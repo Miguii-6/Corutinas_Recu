@@ -1,8 +1,16 @@
 package com.example.corutinas_recu.ui.theme
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.*
 
 /**
  * Variables globales
@@ -33,4 +41,99 @@ fun aux() {
     frases.add(Frase("tenemos cinco dedos los humanos",true))
     frases.add(Frase("cinco días tiene la semana sin el Domingo y el Sábado",true))
     frases.add(Frase("una gallina pesa menos que cinco toneladas",true))
+}
+
+
+
+/**
+ * Función de la Greetting
+ */
+/**
+ * Composable que representa la pantalla principal del juego.
+ * Esta función contiene la lógica principal del juego y la composición de la interfaz de usuario con Jetpack Compose.
+ */
+@Composable
+fun Greeting() {
+
+    // Llama a la función auxiliar para inicializar las frases
+    aux()
+
+    // Scope para el manejo de corrutinas
+    val scope = rememberCoroutineScope()
+
+    /**
+     * Función para iniciar el juego.
+     * Cambia el estado del juego a iniciado, selecciona una frase aleatoria y comienza la cuenta atrás.
+     */
+    fun iniciarJuego() {
+        juegoIniciado = true
+        fraseActual.value = frases.random() // Selecciona una frase aleatoria
+        scope.launch {
+            repeat(20) {
+                delay(1000)
+                CuentaAtras--
+            }
+            juegoIniciado = false
+        }
+    }
+
+    // Composición de la interfaz de usuario con Jetpack Compose
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Muestra el contador de cuenta atrás
+        Text(
+            text = "Count Down: $CuentaAtras",
+            style = MaterialTheme.typography.headlineMedium,
+            color = Color.Black
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Muestra la puntuación actual
+        Text(
+            text = "Puntuación: $puntuacion",
+            style = MaterialTheme.typography.headlineMedium,
+            color = Color.Black
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Muestra la frase actual del juego
+        Text(
+            text = "Frase: ${fraseActual.value.texto}",
+            style = MaterialTheme.typography.headlineLarge,
+            color = Color.Black
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Botones de respuesta (Verdadero o Falso)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            BotonRespuesta(verdadero = true, color = Color.Green)
+            BotonRespuesta(verdadero = false, color = Color.Red)
+        }
+
+        // Botón para iniciar o reiniciar el juego
+        Button(
+            onClick = {
+                if (!juegoIniciado) {
+                    CuentaAtras = 20
+                    puntuacion = 0
+                    iniciarJuego()
+                }
+            }
+        ) {
+            Text("START")
+        }
+    }
 }
