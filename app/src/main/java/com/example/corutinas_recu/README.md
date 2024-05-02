@@ -77,3 +77,54 @@ Button(
     Text("START")
 }
 ```
+
+## Codigo Respuesta
+
+La función `BotonRespuesta` toma dos parámetros: `verdadero`, que indica si el botón representa una 
+respuesta verdadera o falsa, y `color`, que especifica el color del botón. Al hacer clic en el botón, 
+se verifica si el juego está en curso y si la respuesta seleccionada es correcta o incorrecta. 
+Dependiendo de esto, se actualiza la frase actual del juego y la puntuación. El diseño del botón 
+incluye bordes redondeados y un texto "V" o "F" según la respuesta representada.
+
+```kotlin
+
+@Composable
+fun BotonRespuesta(verdadero: Boolean, color: Color) {
+    Button(
+        onClick = {
+            if (!juegoIniciado) return@Button
+            if (fraseActual.value.verdadero == verdadero) {
+                fraseActual.value = frases.random() // Selecciona una nueva frase correcta
+                puntuacion++
+            } else {
+                fraseActual.value = frases.random() // Selecciona una nueva frase incorrecta
+            }
+        },
+
+        modifier = Modifier
+            .padding(10.dp)
+            .size(150.dp)
+            .padding(8.dp), // Añadir padding para que se vean mejor los bordes redondeados
+        shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp), // Agregar bordes redondeados
+
+        colors = ButtonDefaults.buttonColors(color)
+    ) {
+        if (verdadero) {
+            Text("V",
+                color = Color.Black,
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 20.sp
+            )
+
+        } else {
+            Text("F",
+                color = Color.Black,
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 20.sp)
+        }
+    }
+}
+```
+
+
+

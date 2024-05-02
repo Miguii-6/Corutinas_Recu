@@ -137,3 +137,47 @@ fun Greeting() {
         }
     }
 }
+
+
+/**
+ * Composable que representa un botón de respuesta (Verdadero o Falso).
+ *
+ * @param verdadero Booleano que indica si el botón representa la respuesta verdadera.
+ * @param color Color del botón.
+ */
+@Composable
+fun BotonRespuesta(verdadero: Boolean, color: Color) {
+    Button(
+        onClick = {
+            if (!juegoIniciado) return@Button
+            if (fraseActual.value.verdadero == verdadero) {
+                fraseActual.value = frases.random() // Selecciona una nueva frase correcta
+                puntuacion++
+            } else {
+                fraseActual.value = frases.random() // Selecciona una nueva frase incorrecta
+            }
+        },
+
+        modifier = Modifier
+            .padding(10.dp)
+            .size(150.dp)
+            .padding(8.dp), // Añadir padding para que se vean mejor los bordes redondeados
+        shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp), // Agregar bordes redondeados
+
+        colors = ButtonDefaults.buttonColors(color)
+    ) {
+        if (verdadero) {
+            Text("V",
+                color = Color.Black,
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 20.sp
+            )
+
+        } else {
+            Text("F",
+                color = Color.Black,
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 20.sp)
+        }
+    }
+}
